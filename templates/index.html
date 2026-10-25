@@ -7,6 +7,10 @@
   </head>
   <body>
     <main>
+      <nav>
+        <a href="{{ url_for('index') }}">Genres</a>
+        <a href="{{ url_for('books') }}">Books</a>
+      </nav>
       <h1>Add a genre</h1>
       {% for category, message in get_flashed_messages(with_categories=true) %}
         <p role="status">{{ message }}</p>

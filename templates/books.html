@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Books</title>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <a href="{{ url_for('index') }}">Genres</a>
+        <a href="{{ url_for('books') }}">Books</a>
+      </nav>
+      <h1>Books</h1>
+      <form action="{{ url_for('add_book') }}" method="get">
+        <button type="submit">Add a book</button>
+      </form>
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+        <p role="status">{{ message }}</p>
+      {% endfor %}
+
+      {% if books %}
+        <ul>
+          {% for id, title, author, genre in books %}
+            <li>
+              {{ title }} by {{ author }} — {{ genre }}
+              <form method="post" action="{{ url_for('delete_book', book_id=id) }}">
+                <button type="submit">Remove</button>
+              </form>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No books yet.</p>
+      {% endif %}
+    </main>
+  </body>
+</html>

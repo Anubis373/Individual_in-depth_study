@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add a book</title>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <a href="{{ url_for('index') }}">Genres</a>
+        <a href="{{ url_for('books') }}">Books</a>
+      </nav>
+      <h1>Add a book</h1>
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+        <p role="status">{{ message }}</p>
+      {% endfor %}
+
+      {% if genres %}
+        <form method="post">
+          <label for="title">Title</label>
+          <input id="title" name="title" type="text" required autofocus>
+
+          <label for="author">Author</label>
+          <input id="author" name="author" type="text" required>
+
+          <label for="genre_id">Genre</label>
+          <select id="genre_id" name="genre_id" required>
+            <option value="" disabled selected>Select a genre</option>
+            {% for id, name in genres %}
+              <option value="{{ id }}">{{ name }}</option>
+            {% endfor %}
+          </select>
+
+          <button type="submit">Add book</button>
+        </form>
+      {% else %}
+        <p>Add a genre before creating a book.</p>
+      {% endif %}
+    </main>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 # Library database
 
-The database uses PostgreSQL and starts with a `genres` table. Each genre has
-an automatically generated unique ID and a required, unique name.
+The PostgreSQL database contains genres and books. Each book has a title,
+author, and required genre.
 
 Create the database and apply the schema with PostgreSQL's command-line tools:
 
@@ -24,4 +24,6 @@ to `library_db` as `postgres` on `localhost` by default. To use different
 connection settings, set `PGHOST`, `PGPORT`, `PGDATABASE`, or `PGUSER` in the
 environment.
 
-Open <http://127.0.0.1:5000> to add, view, or remove genres.
+Open <http://127.0.0.1:5000> or <http://127.0.0.1:5000/books> to view or
+remove books. Open <http://127.0.0.1:5000/books/add> to add a book, or
+<http://127.0.0.1:5000/genre> to manage genres.
