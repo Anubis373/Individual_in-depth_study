@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Genres</title>
+  </head>
+  <body>
+    <main>
+      <h1>Add a genre</h1>
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+        <p role="status">{{ message }}</p>
+      {% endfor %}
+      <form method="post">
+        <label for="name">Genre name</label>
+        <input id="name" name="name" type="text" required autofocus>
+        <button type="submit">Add genre</button>
+      </form>
+
+      <h2>Genres</h2>
+      {% if genres %}
+        <ul>
+          {% for id, name in genres %}
+            <li>{{ name }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No genres yet.</p>
+      {% endif %}
+    </main>
+  </body>
+</html>
