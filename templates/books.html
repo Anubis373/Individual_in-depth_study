@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
     <main>
       <nav>
+        <a href="{{ url_for('loans') }}">Loans</a>
         <a href="{{ url_for('index') }}">Genres</a>
         <a href="{{ url_for('books') }}">Books</a>
       </nav>
@@ -16,8 +18,35 @@
         <button type="submit">Add a book</button>
       </form>
       {% for category, message in get_flashed_messages(with_categories=true) %}
-        <p role="status">{{ message }}</p>
+        <p class="flash flash-{{ category }}" role="status">{{ message }}</p>
       {% endfor %}
+
+      <form action="{{ url_for('books') }}" method="get">
+        <div class="form-field">
+          <label for="title">Title</label>
+          <input id="title" name="title" type="search" value="{{ title_filter }}">
+        </div>
+
+        <div class="form-field">
+          <label for="author">Author</label>
+          <input id="author" name="author" type="search" value="{{ author_filter }}">
+        </div>
+
+        <div class="form-field">
+          <label for="genre_id">Genre</label>
+          <select id="genre_id" name="genre_id">
+            <option value="">All genres</option>
+            {% for id, name in genres %}
+              <option value="{{ id }}"{% if selected_genre_id == id %} selected{% endif %}>{{ name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button type="submit">Search</button>
+        {% if has_filters %}
+          <a href="{{ url_for('books') }}">Clear filters</a>
+        {% endif %}
+      </form>
 
       {% if books %}
         <ul>
@@ -31,7 +60,11 @@
           {% endfor %}
         </ul>
       {% else %}
-        <p>No books yet.</p>
+        {% if has_filters %}
+          <p>No books match your filters.</p>
+        {% else %}
+          <p>No books yet.</p>
+        {% endif %}
       {% endif %}
     </main>
   </body>

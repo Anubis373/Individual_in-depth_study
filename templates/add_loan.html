@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Loan a book</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <main>
+      <nav>
+        <a href="{{ url_for('loans') }}">Loans</a>
+        <a href="{{ url_for('books') }}">Books</a>
+        <a href="{{ url_for('index') }}">Genres</a>
+      </nav>
+      <h1>Loan a book</h1>
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+        <p class="flash flash-{{ category }}" role="status">{{ message }}</p>
+      {% endfor %}
+
+      {% if books %}
+        <form method="post">
+          <div class="form-field">
+            <label for="borrower_name">Borrower's name</label>
+            <input id="borrower_name" name="borrower_name" type="text" required autofocus>
+          </div>
+
+          <div class="form-field">
+            <label for="book_id">Book</label>
+            <select id="book_id" name="book_id" required>
+              <option value="" disabled selected>Select an available book</option>
+              {% for id, title, author, genre in books %}
+                <option value="{{ id }}">{{ title }} by {{ author }} — {{ genre }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <button type="submit">Record loan</button>
+        </form>
+        <p>Books are due 14 days after they are loaned.</p>
+      {% else %}
+        <p>There are no available books to loan.</p>
+      {% endif %}
+    </main>
+  </body>
+</html>

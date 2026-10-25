@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book loans</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <main>
+      <nav>
+        <a href="{{ url_for('loans') }}">Loans</a>
+        <a href="{{ url_for('books') }}">Books</a>
+        <a href="{{ url_for('index') }}">Genres</a>
+      </nav>
+      <h1>Book loans</h1>
+      <form action="{{ url_for('add_loan') }}" method="get">
+        <button type="submit">Loan a book</button>
+      </form>
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+        <p class="flash flash-{{ category }}" role="status">{{ message }}</p>
+      {% endfor %}
+
+      {% if loans %}
+        <ul>
+          {% for id, title, author, genre, borrower, loaned_on, due_date, returned_on in loans %}
+            <li>
+              <strong>{{ title }}</strong> by {{ author }} — {{ genre }}<br>
+              Borrowed by {{ borrower }} on {{ loaned_on }}; due {{ due_date }}.
+              {% if returned_on %}
+                Returned on {{ returned_on }}.
+              {% else %}
+                <form method="post" action="{{ url_for('return_loan', loan_id=id) }}">
+                  <button type="submit">Mark returned</button>
+                </form>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No loans yet.</p>
+      {% endif %}
+    </main>
+  </body>
+</html>

@@ -1,0 +1,254 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  color: #26352e;
+  background: #f3f5ef;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --green: #315c46;
+  --green-dark: #254735;
+  --green-light: #e8f0e9;
+  --border: #dce4dc;
+  --muted: #66736b;
+  --danger: #a33d36;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 20px;
+  background:
+    radial-gradient(ellipse at top left, #e3ecdf 0, transparent 38rem),
+    #f3f5ef;
+}
+
+main {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding: clamp(24px, 5vw, 48px);
+  border: 1px solid rgba(220, 228, 220, 0.9);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(34, 57, 42, 0.08);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 32px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+nav a {
+  padding: 8px 13px;
+  border-radius: 999px;
+  color: var(--green);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  background: var(--green-light);
+}
+
+h1 {
+  margin: 0 0 20px;
+  color: #263c30;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+p {
+  line-height: 1.6;
+}
+
+main > form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 14px;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fafbf8;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #394a40;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+input,
+select {
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #cbd6cc;
+  border-radius: 9px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--green);
+  outline: 3px solid rgba(49, 92, 70, 0.15);
+}
+
+.form-field {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+}
+
+button {
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--green);
+  color: #fff;
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background 120ms ease, transform 120ms ease;
+}
+
+button:hover {
+  background: var(--green-dark);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(49, 92, 70, 0.3);
+  outline-offset: 3px;
+}
+
+main > form[action*="books"] button,
+main > form[action*="genre"] button,
+main > form[action*="loans"] button {
+  min-width: 140px;
+}
+
+ul {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  line-height: 1.55;
+}
+
+li > form {
+  margin: 0;
+}
+
+li button {
+  min-height: 36px;
+  padding: 7px 12px;
+  background: #f8ecea;
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+li button:hover {
+  background: #f1dcd9;
+  color: #812d27;
+}
+
+a {
+  color: var(--green);
+}
+
+main > form a {
+  align-self: center;
+  padding: 8px;
+  font-weight: 600;
+}
+
+p[role="status"] {
+  margin: 16px 0;
+  padding: 12px 14px;
+  border: 1px solid #cce1d0;
+  border-radius: 10px;
+  background: #eff7ef;
+  color: #285b37;
+}
+
+p.flash-error {
+  border-color: #eccdca;
+  background: #fcf0ef;
+  color: #842f29;
+}
+
+@media (max-width: 540px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  main {
+    padding: 24px 18px;
+    border-radius: 15px;
+  }
+
+  main > form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .form-field,
+  .form-field input,
+  .form-field select,
+  main > form button {
+    width: 100%;
+  }
+
+  li {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
