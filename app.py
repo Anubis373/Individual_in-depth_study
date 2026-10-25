@@ -54,5 +54,21 @@ def index():
     return render_template("index.html", genres=genres)
 
 
+@app.post("/genres/<int:genre_id>/delete")
+def delete_genre(genre_id):
+    with get_database_connection() as connection:
+        deleted_genre = connection.execute(
+            "DELETE FROM public.genres WHERE id = %s RETURNING name",
+            (genre_id,),
+        ).fetchone()
+
+    if deleted_genre is None:
+        flash("That genre was not found.", "error")
+    else:
+        flash(f"Removed {deleted_genre[0]}.", "success")
+
+    return redirect(url_for("index"))
+
+
 if __name__ == "__main__":
     app.run(debug=False)

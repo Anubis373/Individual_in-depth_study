@@ -24,4 +24,4 @@ to `library_db` as `postgres` on `localhost` by default. To use different
 connection settings, set `PGHOST`, `PGPORT`, `PGDATABASE`, or `PGUSER` in the
 environment.
 
-Open <http://127.0.0.1:5000> to add a genre and see the saved genres.
+Open <http://127.0.0.1:5000> to add, view, or remove genres.
