@@ -133,6 +133,32 @@ button {
   transition: background 120ms ease, transform 120ms ease;
 }
 
+button,
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  min-height: 36px;
+  padding: 7px 12px;
+  border-radius: 9px;
+  background: var(--green-light);
+  color: var(--green-dark);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #d9e7dc;
+}
+
+.button-secondary {
+  color: var(--green-dark);
+}
+
 button:hover {
   background: var(--green-dark);
 }
@@ -176,6 +202,10 @@ li {
 
 li > form {
   margin: 0;
+}
+
+li > a.button {
+  margin-left: auto;
 }
 
 li button {

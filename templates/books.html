@@ -53,6 +53,7 @@
           {% for id, title, author, genre in books %}
             <li>
               {{ title }} by {{ author }} — {{ genre }}
+              <a class="button button-secondary" href="{{ url_for('edit_book', book_id=id) }}">Edit</a>
               <form method="post" action="{{ url_for('delete_book', book_id=id) }}">
                 <button type="submit">Remove</button>
               </form>

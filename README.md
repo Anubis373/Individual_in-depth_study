@@ -28,8 +28,8 @@ environment.
 Open <http://127.0.0.1:5000> or <http://127.0.0.1:5000/loans> to view loan
 history and mark books returned. Open <http://127.0.0.1:5000/loans/add> to
 loan an available book; each loan is due 14 days after checkout. Open
-<http://127.0.0.1:5000/books> to search, view, or remove books. Search titles
-and authors by partial text, and filter by genre. Open
+<http://127.0.0.1:5000/books> to search, view, add, edit, or remove books.
+Search titles and authors by partial text, and filter by genre. Open
 <http://127.0.0.1:5000/books/add> to add a book. Open
 <http://127.0.0.1:5000/genre> to view or remove genres, or
 <http://127.0.0.1:5000/genre/add> to add a genre.

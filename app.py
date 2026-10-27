@@ -289,6 +289,63 @@ def add_book():
     return render_template("add_book.html", genres=genres)
 
 
+@app.route("/books/<int:book_id>/edit", methods=["GET", "POST"])
+def edit_book(book_id):
+    if request.method == "POST":
+        title = request.form.get("title", "").strip()
+        author = request.form.get("author", "").strip()
+        genre_id_value = request.form.get("genre_id", "")
+
+        if not title or not author:
+            flash("Please enter both a title and an author.", "error")
+            return redirect(url_for("edit_book", book_id=book_id))
+
+        try:
+            genre_id = int(genre_id_value)
+            if not 1 <= genre_id <= 2_147_483_647:
+                raise ValueError
+        except ValueError:
+            flash("Please select a valid genre.", "error")
+            return redirect(url_for("edit_book", book_id=book_id))
+
+        try:
+            with get_database_connection() as connection:
+                updated_book = connection.execute(
+                    """
+                    UPDATE public.books
+                    SET title = %s, author = %s, genre_id = %s
+                    WHERE id = %s
+                    RETURNING id
+                    """,
+                    (title, author, genre_id, book_id),
+                ).fetchone()
+        except ForeignKeyViolation:
+            flash("That genre no longer exists. Please select another one.", "error")
+            return redirect(url_for("edit_book", book_id=book_id))
+
+        if updated_book is None:
+            flash("That book was not found.", "error")
+            return redirect(url_for("books"))
+
+        flash("Book updated.", "success")
+        return redirect(url_for("books"))
+
+    with get_database_connection() as connection:
+        book = connection.execute(
+            "SELECT id, title, author, genre_id FROM public.books WHERE id = %s",
+            (book_id,),
+        ).fetchone()
+        if book is None:
+            flash("That book was not found.", "error")
+            return redirect(url_for("books"))
+
+        genres = connection.execute(
+            "SELECT id, name FROM public.genres ORDER BY name"
+        ).fetchall()
+
+    return render_template("edit_book.html", book=book, genres=genres)
+
+
 @app.post("/books/<int:book_id>/delete")
 def delete_book(book_id):
     try:
